@@ -3,6 +3,7 @@ import { ForwardRefExoticComponent, RefAttributes, useState } from "react";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubItem } from "../ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 type MenuCollapsableSidebarProps = {
     titulo: string
@@ -38,10 +39,10 @@ export default function MenuCollapsableSidebar({ titulo, items }: MenuCollapsabl
                             {items.map((item) => (
                                 <SidebarMenuSubItem key={item.title}>
                                     <SidebarMenuButton asChild>
-                                        <a href={item.url}>
+                                        <Link href={item.url}>
                                             <item.icon />
                                             <span>{item.title}</span>
-                                        </a>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuSubItem>
                             ))}

@@ -6,11 +6,10 @@ import {
     SidebarGroupContent,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot } from "lucide-react"
+import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, Users, UserPlus } from "lucide-react"
 import MenuCollapsableSidebar from "./menu-collapsable"
 import HeaderSideBarComponent from "./header-siderbar"
 import FooterSiderBarComponent from "./footer-sidebar"
-import { title } from "process"
 
 const itemsMedidores = [
     {
@@ -66,6 +65,20 @@ const itemsFooter = [
         icon: LandPlot
     }
 ]
+
+
+const itemsUsuarios = [
+    {
+        title: "Ver usuarios",
+        url: "/usuarios",
+        icon: Users,
+    },
+    {
+        title: "Nuevo usuario",
+        url: "/usuarios/new",
+        icon: UserPlus,
+    },
+]
 export function SideBar() {
 
     return (
@@ -82,6 +95,8 @@ export function SideBar() {
                             <MenuCollapsableSidebar titulo="Medidores" items={itemsMedidores} />
 
                             <MenuCollapsableSidebar titulo="Datos" items={itemsVisualizacionDatos} />
+
+                            <MenuCollapsableSidebar titulo="Usuarios" items={itemsUsuarios} />
 
                         </SidebarGroupContent>
                     </SidebarGroup>
