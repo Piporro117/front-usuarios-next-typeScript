@@ -2,6 +2,7 @@ import { ChevronDown, ChevronUp, LucideProps } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes, useState } from "react";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSub, SidebarMenuSubItem } from "../ui/sidebar";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
+import { cn } from "@/lib/utils";
 
 type MenuCollapsableSidebarProps = {
     titulo: string
@@ -25,7 +26,10 @@ export default function MenuCollapsableSidebar({ titulo, items }: MenuCollapsabl
                     <CollapsibleTrigger asChild>
                         <SidebarMenuButton className="flex justify-between">
                             {titulo}
-                            {open ? <ChevronDown /> : <ChevronUp />}
+                            <ChevronDown className={cn(
+                                "transition-transform duration-300",
+                                open ? "rotate-180" : "rotate-0"
+                            )} />
                         </SidebarMenuButton>
                     </CollapsibleTrigger>
 

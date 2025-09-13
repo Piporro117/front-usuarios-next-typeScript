@@ -2,21 +2,15 @@
 import {
     Sidebar,
     SidebarContent,
-    SidebarFooter,
     SidebarGroup,
     SidebarGroupContent,
-    SidebarGroupLabel,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, CircleUserRound, ChevronUp } from "lucide-react"
+import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot } from "lucide-react"
 import MenuCollapsableSidebar from "./menu-collapsable"
-import Image from "next/image"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from "../ui/dropdown-menu"
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
+import HeaderSideBarComponent from "./header-siderbar"
+import FooterSiderBarComponent from "./footer-sidebar"
+import { title } from "process"
 
 const itemsMedidores = [
     {
@@ -54,65 +48,50 @@ const itemsVisualizacionDatos = [
         icon: LandPlot
     }
 ]
+
+const itemsFooter = [
+    {
+        title: 'Perfil',
+        url: '#',
+        icon: LandPlot
+    },
+    {
+        title: 'Configuración',
+        url: '#',
+        icon: LandPlot
+    },
+    {
+        title: 'Cerrar sesion',
+        url: '#',
+        icon: LandPlot
+    }
+]
 export function SideBar() {
 
     return (
-        <Sidebar>
-            {/** Header del sidebar */}
-            <SidebarHeader className="flex items-center justify-center">
-                <Image src={"/imgs/cfe_logo.png"} width={150} height={150} alt="logo" className="mt-2" />
-            </SidebarHeader>
+        <div className="relative">
+            <Sidebar>
+                {/** Header del sidebar */}
+                <HeaderSideBarComponent ruta="/imgs/cfe_logo.png" />
 
 
-            <SidebarContent>
-                <SidebarGroup>
-                    <SidebarGroupContent>
+                <SidebarContent>
+                    <SidebarGroup>
+                        <SidebarGroupContent>
 
-                        <MenuCollapsableSidebar titulo="Medidores" items={itemsMedidores} />
+                            <MenuCollapsableSidebar titulo="Medidores" items={itemsMedidores} />
 
-                        <MenuCollapsableSidebar titulo="Datos" items={itemsVisualizacionDatos} />
+                            <MenuCollapsableSidebar titulo="Datos" items={itemsVisualizacionDatos} />
 
-                    </SidebarGroupContent>
-                </SidebarGroup>
-            </SidebarContent>
+                        </SidebarGroupContent>
+                    </SidebarGroup>
+                </SidebarContent>
 
+                {/** footer de sidebar */}
+                <FooterSiderBarComponent titulo="Usuario" items={itemsFooter} />
+            </Sidebar>
 
-            {/** footer del sidebar */}
-            <SidebarFooter>
-                <SidebarMenu>
-
-                    <SidebarMenuItem>
-                        <DropdownMenu>
-                            <DropdownMenuTrigger asChild className="h-15">
-                                <SidebarMenuButton className="text-[18px]">
-                                    <CircleUserRound size={24} />
-                                    Usuario
-                                    <ChevronUp className="ml-auto" size={500} />
-                                </SidebarMenuButton>
-                            </DropdownMenuTrigger>
-
-
-                            <DropdownMenuContent
-                                side="top"
-                                className="w-52"
-                            >
-                                <DropdownMenuItem>
-                                    <span>Perfil</span>
-                                </DropdownMenuItem>
-
-                                <DropdownMenuItem>
-                                    <span>Configuracion</span>
-                                </DropdownMenuItem>
-
-                                <DropdownMenuItem>
-                                    <span> Cerrar sesión</span>
-                                </DropdownMenuItem>
-
-                            </DropdownMenuContent>
-                        </DropdownMenu>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </SidebarFooter>
-        </Sidebar>
+            <SidebarTrigger className="absolute top-4 right-[-40px] " />
+        </div>
     )
 }
