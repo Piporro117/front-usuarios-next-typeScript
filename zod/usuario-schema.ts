@@ -4,7 +4,7 @@ export const UsuarioSchema = z.object({
     id: z.number().optional(),
     user_name: z.string().optional(),
     user_email: z.string().optional(),
-    user_password: z.string().optional(),
+    password: z.string().optional(),
     created_date: z.string().optional()
 }).superRefine((data, ctx) => {
 
@@ -25,7 +25,7 @@ export const UsuarioSchema = z.object({
     }
 
 
-    if (!data.user_password) {
+    if (!data.password) {
         ctx.addIssue({
             code: 'custom',
             message: 'Campo obligatorio',

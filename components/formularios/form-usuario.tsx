@@ -7,22 +7,50 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { Label } from "../ui/label"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 export default function FormularioUsuario() {
+
+    const router = useRouter()
 
     // creacion del formulario
     const form = useForm<Usuario>({
         resolver: zodResolver(UsuarioSchema),
         defaultValues: {
             user_name: '',
-            user_password: '',
+            password: '',
             user_email: '',
         }
     })
 
     // funcion del submit
-    function onSubmit(data: Usuario) {
+    async function onSubmit(data: Usuario) {
         console.log("Datos del formulario: ", data)
+
+        console.log(JSON.stringify(data))
+        try {
+
+            const response = await fetch("http://127.0.0.1:5000/api/auth/register", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+
+            if (response.ok) {
+                toast.success("Usuario creado exitosamente")
+                router.push('/usuarios')
+            } else {
+                toast.error("Errror al crear formulario")
+                return
+            }
+
+        } catch (error) {
+            console.error("Error al enviar datos:", error)
+        }
+
     }
 
     return (
@@ -60,7 +88,7 @@ export default function FormularioUsuario() {
 
                     <FormField
                         control={form.control}
-                        name="user_password"
+                        name="password"
                         render={({ field }) => (
                             <FormItem className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2">
                                 <FormLabel>Contraseña</FormLabel>
