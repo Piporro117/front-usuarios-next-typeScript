@@ -78,12 +78,22 @@ const itemsUsuarios = [
         url: "/usuarios/new",
         icon: UserPlus,
     },
+    {
+        title: "Login",
+        url: "/usuarios/login",
+        icon: UserPlus,
+    },
+    {
+        title: "Logout",
+        url: "/usuarios/logout",
+        icon: UserPlus,
+    },
 ]
 export function SideBar() {
 
     return (
         <div className="relative">
-            <Sidebar>
+            <Sidebar collapsible="icon">
                 {/** Header del sidebar */}
                 <HeaderSideBarComponent ruta="/imgs/cfe_logo.png" />
 
