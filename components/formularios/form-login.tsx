@@ -46,7 +46,7 @@ export default function FormLogin() {
 
     return (
         <div className="space-y-5">
-            <Label className="text-3xl"> Creación de usuario</Label>
+            <Label className="text-3xl"> Inicio de sesion </Label>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
 

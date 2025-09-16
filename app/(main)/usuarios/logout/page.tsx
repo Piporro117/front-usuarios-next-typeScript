@@ -14,7 +14,7 @@ export default function PageLogout() {
         })
 
         if (response.ok) {
-            router.push('/usuarios')
+            router.push('/login')
         } else {
             toast.error("Error al salir de la sesion")
         }

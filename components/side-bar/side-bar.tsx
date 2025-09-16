@@ -79,11 +79,6 @@ const itemsUsuarios = [
         icon: UserPlus,
     },
     {
-        title: "Login",
-        url: "/usuarios/login",
-        icon: UserPlus,
-    },
-    {
         title: "Logout",
         url: "/usuarios/logout",
         icon: UserPlus,
