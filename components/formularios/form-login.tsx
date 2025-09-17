@@ -8,10 +8,13 @@ import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
+import { useUser } from "@/contextApi/context-auth"
 
 export default function FormLogin() {
 
     const router = useRouter()
+
+    const { setUser } = useUser()
 
     const form = useForm<Login>({
         resolver: zodResolver(LoginSchema),
@@ -22,7 +25,6 @@ export default function FormLogin() {
     })
 
     async function onSubmit(data: Login) {
-        console.log("Data", data)
 
         const res = await fetch("http://localhost:5000/api/auth/loginCookie", {
             method: "POST",
@@ -34,6 +36,8 @@ export default function FormLogin() {
         })
 
         if (res.ok) {
+            const dataUsuario = await res.json()
+            setUser(dataUsuario)
             toast.success("Inicio de sesion exitoso")
             router.push('/usuarios')
         } else {

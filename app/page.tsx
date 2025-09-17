@@ -8,15 +8,14 @@ export default function Home() {
 
   const router = useRouter()
 
-  const { user } = useUser();
+  const { isUserLoggedIn } = useUser();
 
+  // mientras no hay usuario, mandamos al login
   useEffect(() => {
-    if (user === null) {
+    if (!isUserLoggedIn()) {
       router.push("/login");
-    } else {
-      router.push("/usuarios")
     }
-  }, []);
+  }, [isUserLoggedIn]);
 
   return (
     <div></div>

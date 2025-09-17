@@ -7,57 +7,64 @@ import { Usuario } from "@/zod/usuario-schema";
 type UserContextType = {
     user: Usuario | null;
     setUser: (user: Usuario | null) => void;
-    logout: () => Promise<void>;
-    checkAuth: () => Promise<void>;
+    logout: () => void;
+    clearUser: () => void;
+    isUserLoggedIn: () => boolean;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-    const [user, setUser] = useState<Usuario | null>(null);
+    const [user, setUserState] = useState<Usuario | null>(null);
     const router = useRouter();
 
-    // Función para verificar si hay sesión activa
-    async function checkAuth() {
-        try {
-            const res = await fetch("http://localhost:5000/api/auth/me", {
-                method: "GET",
-                credentials: "include",
-            });
-            if (res.ok) {
-                const data = await res.json();
-                setUser(data);
-            } else {
-                setUser(null);
-            }
-        } catch (err) {
-            setUser(null);
+    // --- Helpers ---
+    function saveUser(user: Usuario | null) {
+        if (user) {
+            localStorage.setItem("user", JSON.stringify(user));
+        } else {
+            localStorage.removeItem("user");
         }
+        setUserState(user);
     }
 
-    // Función para cerrar sesión
-    async function logout() {
-        try {
-            const res = await fetch("http://localhost:5000/api/auth/logout", {
-                method: "POST",
-                credentials: "include",
-            });
-            if (res.ok) {
-                setUser(null);
-                router.push("/login");
-            }
-        } catch (err) {
-            console.error("Error al cerrar sesión", err);
-        }
+    // Expuesto al context
+    function setUser(user: Usuario | null) {
+        saveUser(user);
     }
 
-    // Verificar sesión al montar el contexto
+    function clearUser() {
+        saveUser(null);
+        router.push("/login");
+    }
+
+    function logout() {
+        saveUser(null);
+        router.push("/login");
+        // Opcional: puedes también pegarle al endpoint de logout de tu API aquí
+    }
+
+    // verificar si hay usaurio en el localstore
+    function isUserLoggedIn(): boolean {
+        if (user) return true; // ya está en memoria
+        const stored = localStorage.getItem("user");
+        return !!stored;
+    }
+
+    // Al montar el provider, recuperar usuario del localStorage
     useEffect(() => {
-        checkAuth();
+        const stored = localStorage.getItem("user");
+        if (stored) {
+            try {
+                setUserState(JSON.parse(stored));
+            } catch {
+                localStorage.removeItem("user");
+            }
+        }
     }, []);
 
     return (
-        <UserContext.Provider value={{ user, setUser, logout, checkAuth }}>
+        <UserContext.Provider value={{ user, setUser, logout, clearUser, isUserLoggedIn }}>
             {children}
         </UserContext.Provider>
     );

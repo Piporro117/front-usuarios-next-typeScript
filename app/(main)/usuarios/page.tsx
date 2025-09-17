@@ -1,9 +1,11 @@
 "use client"
+import { useUser } from "@/contextApi/context-auth"
 import { Usuario } from "@/zod/usuario-schema"
 import { useEffect, useState } from "react"
 
 export default function PageUsuarios() {
 
+    const { user } = useUser()
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
 
     useEffect(() => {
@@ -29,7 +31,7 @@ export default function PageUsuarios() {
                 console.log(error)
             }
         }
-
+        console.log('user', user)
         fetchUsuarios()
     }, [])
 
