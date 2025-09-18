@@ -1,3 +1,4 @@
+import { ColumnDef } from "@tanstack/react-table"
 import { z } from "zod"
 
 export const UsuarioSchema = z.object({
@@ -36,3 +37,23 @@ export const UsuarioSchema = z.object({
 
 
 export type Usuario = z.infer<typeof UsuarioSchema>
+
+// columnas en tablas
+export const ColumnasUsuario: ColumnDef<Usuario>[] = [
+    {
+        accessorKey: 'id',
+        header: 'ID'
+    },
+    {
+        accessorKey: 'user_name',
+        header: 'Nombre de usuario'
+    },
+    {
+        accessorKey: 'user_email',
+        header: 'Email'
+    },
+    {
+        accessorKey: 'created_date',
+        header: 'Fecha de registro'
+    }
+]

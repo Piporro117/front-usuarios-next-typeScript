@@ -1,11 +1,13 @@
 "use client"
+import TableComponente from "@/components/table/table-component"
+import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
-import { Usuario } from "@/zod/usuario-schema"
+import { ColumnasUsuario, Usuario } from "@/zod/usuario-schema"
 import { useEffect, useState } from "react"
 
 export default function PageUsuarios() {
 
-    const { user } = useUser()
+    const { user, clearUser } = useUser()
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
 
     useEffect(() => {
@@ -18,13 +20,16 @@ export default function PageUsuarios() {
                     credentials: 'include'
                 })
 
+                if (response.status === 401) {
+                    clearUser()
+                }
+
                 const data = await response.json()
+
 
                 if (response.ok) {
                     setUsuarios(data)
                     console.log(data)
-                } else {
-                    console.log("Error en el fetch del usuarios")
                 }
 
             } catch (error) {
@@ -36,11 +41,15 @@ export default function PageUsuarios() {
     }, [])
 
     return (
-        <div className="mt-10 ml-14">
+        <div className="mt-10 ml-14 w-full mr-3">
 
-            Pagina principal Usuarios
+            <Label className="text-3xl"> Pagina principal usuarios </Label>
 
-
+            <TableComponente
+                columns={ColumnasUsuario}
+                data={usuarios}
+                filterBy="user_email"
+            />
 
 
         </div>
