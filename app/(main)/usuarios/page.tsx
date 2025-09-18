@@ -3,9 +3,12 @@ import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
 import { ColumnasUsuario, Usuario } from "@/zod/usuario-schema"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function PageUsuarios() {
+
+    const router = useRouter()
 
     const { user, clearUser } = useUser()
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
@@ -24,10 +27,9 @@ export default function PageUsuarios() {
                     clearUser()
                 }
 
-                const data = await response.json()
-
 
                 if (response.ok) {
+                    const data = await response.json()
                     setUsuarios(data)
                     console.log(data)
                 }
@@ -49,6 +51,9 @@ export default function PageUsuarios() {
                 columns={ColumnasUsuario}
                 data={usuarios}
                 filterBy="user_email"
+                onRowDoubleClick={(usuario) => {
+                    router.push(`/usuarios/${usuario.id}`)
+                }}
             />
 
 
