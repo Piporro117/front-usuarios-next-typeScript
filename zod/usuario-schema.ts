@@ -1,6 +1,9 @@
+import { convertirFecha } from "@/lib/utils"
 import { ColumnDef } from "@tanstack/react-table"
 import { z } from "zod"
 
+
+// schema base para crear un usaurio y obtener datos de este
 export const UsuarioSchema = z.object({
     id: z.number().optional(),
     user_name: z.string().optional(),
@@ -36,7 +39,34 @@ export const UsuarioSchema = z.object({
 })
 
 
+// schema para la edicion de un usaurio
+export const UsuarioEditSchema = UsuarioSchema.pick({
+    user_name: true,
+    user_email: true
+}).superRefine((data, ctx) => {
+    if (!data.user_name) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_name']
+        })
+    }
+
+    if (!data.user_email) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_email']
+        })
+    }
+})
+
+
+// type usuairo para creacion y obtencion
 export type Usuario = z.infer<typeof UsuarioSchema>
+export type UsuarioEdit = z.infer<typeof UsuarioEditSchema>
+
+
 
 // columnas en tablas
 export const ColumnasUsuario: ColumnDef<Usuario>[] = [
@@ -54,6 +84,11 @@ export const ColumnasUsuario: ColumnDef<Usuario>[] = [
     },
     {
         accessorKey: 'created_date',
-        header: 'Fecha de registro'
+        header: 'Fecha de registro',
+        cell: ({ row }) => {
+            const fecha = row.getValue("created_date") as string
+
+            return convertirFecha(fecha)
+        }
     }
 ]

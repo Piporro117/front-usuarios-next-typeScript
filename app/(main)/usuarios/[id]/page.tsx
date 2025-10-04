@@ -1,7 +1,11 @@
 "use client"
 
+import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
+import { convertirFecha } from "@/lib/utils"
 import { Usuario } from "@/zod/usuario-schema"
+import { PencilLine, Trash2 } from "lucide-react"
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -42,18 +46,40 @@ export default function PageInfoUsuario() {
     }, [])
 
     return (
-        <div>
+        <div className="w-full flex flex-col gap-3">
 
-            <p>Usuario info</p>
+            <Label className="font-bold text-3xl my-9 bg-green-300 p-5 rounded-2xl"> Información general de usuario</Label>
 
-            <p> Id {usuario?.id}</p>
+            <div className="flex flex-col gap-1 border-4 rounded-2xl border-green-500">
 
-            <p> Nombre {usuario?.user_name}</p>
+                <div className="border-b border-green-400 py-2 px-6">
+                    <Label className="font-bold text-2xl mb-4"> Nombre: </Label>
+                    <Label> {usuario?.user_name?.toUpperCase()}</Label>
+                </div>
 
-            <p> Email {usuario?.user_email}</p>
+                <div className="border-b border-green-400 py-2 px-6">
+                    <Label className="font-bold text-2xl mb-4"> Folio: </Label>
+                    <Label> {usuario?.id} </Label>
+                </div>
 
-            <p> Fecha creacion {usuario?.created_date}</p>
+                <div className="border-b border-green-400 py-2 px-6">
+                    <Label className="font-bold text-2xl mb-4"> Email: </Label>
+                    <Label> {usuario?.user_email?.toLocaleLowerCase()}</Label>
+                </div>
 
-        </div>
+                <div className="py-2 px-6">
+                    <Label className="font-bold text-2xl mb-4"> Fecha de creacion: </Label>
+                    <Label> {convertirFecha(usuario?.created_date)}</Label>
+                </div>
+
+            </div>
+
+            <div className="mt-8 px-6 flex justify-around items-center">
+                <Button size={'lg'} className="bg-blue-500 hover:bg-blue-600"> <PencilLine /> Editar </Button>
+
+                <Button size={'lg'} className="bg-red-600 hover:bg-red-700"> <Trash2 /> Borrar </Button>
+            </div>
+
+        </div >
     )
 }

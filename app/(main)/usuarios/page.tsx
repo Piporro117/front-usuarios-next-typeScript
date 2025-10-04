@@ -43,7 +43,7 @@ export default function PageUsuarios() {
     }, [])
 
     return (
-        <div className="mt-10 ml-14 w-full mr-3">
+        <div className="">
 
             <Label className="text-3xl"> Pagina principal usuarios </Label>
 
