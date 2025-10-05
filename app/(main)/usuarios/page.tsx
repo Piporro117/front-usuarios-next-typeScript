@@ -1,4 +1,5 @@
 "use client"
+import { ChartAreaDefault } from "@/components/graficos/areaChart"
 import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
@@ -55,6 +56,9 @@ export default function PageUsuarios() {
                     router.push(`/usuarios/${usuario.id}`)
                 }}
             />
+
+
+            <ChartAreaDefault usuarios={usuarios} />
 
 
         </div>
