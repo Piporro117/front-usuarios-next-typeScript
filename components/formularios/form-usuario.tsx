@@ -26,9 +26,6 @@ export default function FormularioUsuario() {
 
     // funcion del submit
     async function onSubmit(data: Usuario) {
-        console.log("Datos del formulario: ", data)
-
-        console.log(JSON.stringify(data))
         try {
 
             const response = await fetch("http://localhost:5000/api/auth/register", {

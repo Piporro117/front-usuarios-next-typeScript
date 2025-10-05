@@ -6,13 +6,15 @@ import { useUser } from "@/contextApi/context-auth"
 import { convertirFecha } from "@/lib/utils"
 import { Usuario } from "@/zod/usuario-schema"
 import { PencilLine, Trash2 } from "lucide-react"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { toast } from "sonner"
 
 export default function PageInfoUsuario() {
 
     const { id } = useParams()
     const { clearUser } = useUser()
+    const router = useRouter()
 
     const [usuario, setUsaurio] = useState<Usuario | undefined>(undefined)
 
@@ -45,6 +47,27 @@ export default function PageInfoUsuario() {
         fetchUsuario()
     }, [])
 
+
+    // handler delete 
+    async function deleteHandler() {
+        try {
+            const response = await fetch(`http://localhost:5000/api/auth/eliminarUsuario/${idNumber}`, {
+                method: 'DELETE'
+            })
+
+            if (response.ok) {
+                toast.success('Usuario eliminado con exito')
+                router.back()
+            } else {
+                if (response.status === 401) {
+                    clearUser()
+                }
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="w-full flex flex-col gap-3">
 
@@ -75,9 +98,13 @@ export default function PageInfoUsuario() {
             </div>
 
             <div className="mt-8 px-6 flex justify-around items-center">
-                <Button size={'lg'} className="bg-blue-500 hover:bg-blue-600"> <PencilLine /> Editar </Button>
+                <Button size={'lg'} className="bg-blue-500 hover:bg-blue-600" onClick={() => router.push(`${id}/edit`)}>
+                    <PencilLine /> Editar
+                </Button>
 
-                <Button size={'lg'} className="bg-red-600 hover:bg-red-700"> <Trash2 /> Borrar </Button>
+                <Button size={'lg'} className="bg-red-600 hover:bg-red-700" onClick={deleteHandler}>
+                    <Trash2 /> Borrar
+                </Button>
             </div>
 
         </div >
