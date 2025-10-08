@@ -15,7 +15,7 @@ export default function Home() {
     if (!isUserLoggedIn()) {
       router.push("/login");
     }
-  }, [isUserLoggedIn]);
+  }, []);
 
   return (
     <div></div>

@@ -97,9 +97,9 @@ export function SideBar() {
                     <SidebarGroup>
                         <SidebarGroupContent>
 
-                            <MenuCollapsableSidebar titulo="Medidores" items={itemsMedidores} />
 
-                            <MenuCollapsableSidebar titulo="Datos" items={itemsVisualizacionDatos} />
+
+
 
                             <MenuCollapsableSidebar titulo="Usuarios" items={itemsUsuarios} />
 
