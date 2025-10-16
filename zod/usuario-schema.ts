@@ -5,7 +5,7 @@ import { z } from "zod"
 
 // schema base para crear un usaurio y obtener datos de este
 export const UsuarioSchema = z.object({
-    id: z.number().optional(),
+    user_id: z.number().optional(),
     user_name: z.string().optional(),
     user_email: z.string().optional(),
     password: z.string().optional(),
@@ -71,7 +71,7 @@ export type UsuarioEdit = z.infer<typeof UsuarioEditSchema>
 // columnas en tablas
 export const ColumnasUsuario: ColumnDef<Usuario>[] = [
     {
-        accessorKey: 'id',
+        accessorKey: 'user_id',
         header: 'ID'
     },
     {

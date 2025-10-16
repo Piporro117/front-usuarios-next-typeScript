@@ -46,14 +46,14 @@ export default function PageUsuarios() {
     return (
         <div className="">
 
-            <Label className="text-3xl"> Pagina principal usuarios </Label>
+            <Label className="text-3xl"> SISTEMA DE MONITOREO MAESTRO </Label>
 
             <TableComponente
                 columns={ColumnasUsuario}
                 data={usuarios}
                 filterBy="user_email"
                 onRowDoubleClick={(usuario) => {
-                    router.push(`/usuarios/${usuario.id}`)
+                    router.push(`/usuarios/${usuario.user_id}`)
                 }}
             />
 

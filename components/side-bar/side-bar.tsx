@@ -90,16 +90,12 @@ export function SideBar() {
         <div className="relative">
             <Sidebar collapsible="icon">
                 {/** Header del sidebar */}
-                <HeaderSideBarComponent ruta="/imgs/cfe_logo.png" />
+                <HeaderSideBarComponent ruta="/imgs/4ti_logo.png" />
 
 
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupContent>
-
-
-
-
 
                             <MenuCollapsableSidebar titulo="Usuarios" items={itemsUsuarios} />
 
