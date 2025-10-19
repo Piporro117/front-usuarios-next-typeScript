@@ -1,5 +1,4 @@
 "use client"
-import { Login, LoginSchema } from "@/zod/login-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Label } from "../ui/label"
@@ -9,6 +8,7 @@ import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { useUser } from "@/contextApi/context-auth"
+import { UsuarioLogin, UsuarioLoginSchema } from "@/zod/usuario-schema"
 
 export default function FormLogin() {
 
@@ -16,15 +16,15 @@ export default function FormLogin() {
 
     const { setUser } = useUser()
 
-    const form = useForm<Login>({
-        resolver: zodResolver(LoginSchema),
+    const form = useForm<UsuarioLogin>({
+        resolver: zodResolver(UsuarioLoginSchema),
         defaultValues: {
             password: '',
             user_clave: '',
         }
     })
 
-    async function onSubmit(data: Login) {
+    async function onSubmit(data: UsuarioLogin) {
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/loginCookie`, {
             method: "POST",

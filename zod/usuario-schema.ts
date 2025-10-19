@@ -142,10 +142,33 @@ export const UsuarioEditSchema = UsuarioSchema.pick({
     }
 })
 
+// schema para el login de usaurio
+export const UsuarioLoginSchema = UsuarioSchema.pick({
+    user_clave: true,
+    password: true
+}).superRefine((data, ctx) => {
+    if (!data.user_clave) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_clave']
+        })
+    }
+
+    if (!data.password) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['password']
+        })
+    }
+
+})
 
 // type usuairo para creacion y obtencion
 export type Usuario = z.infer<typeof UsuarioSchema>
 export type UsuarioEdit = z.infer<typeof UsuarioEditSchema>
+export type UsuarioLogin = z.infer<typeof UsuarioLoginSchema>
 
 
 
