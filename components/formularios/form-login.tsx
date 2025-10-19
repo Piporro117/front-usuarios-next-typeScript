@@ -20,13 +20,13 @@ export default function FormLogin() {
         resolver: zodResolver(LoginSchema),
         defaultValues: {
             password: '',
-            user_email: '',
+            user_clave: '',
         }
     })
 
     async function onSubmit(data: Login) {
 
-        const res = await fetch("http://localhost:5000/api/auth/loginCookie", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/loginCookie`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -41,8 +41,13 @@ export default function FormLogin() {
             toast.success("Inicio de sesion exitoso")
             router.push('/usuarios')
         } else {
-            toast.error("Error al iniciar sesion")
-            console.log(res.json)
+            if (res.status === 401) {
+                toast.error("Usuario o contraseña no validos")
+                return
+            }
+
+            const error = await res.json().catch(() => null);
+            toast.error(error?.message || "Error al iniciar sesión");
         }
     }
 
@@ -56,12 +61,12 @@ export default function FormLogin() {
 
                     <FormField
                         control={form.control}
-                        name="user_email"
+                        name="user_clave"
                         render={({ field }) => (
                             <FormItem className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2">
-                                <FormLabel>Email del usaurio</FormLabel>
+                                <FormLabel>Clave de usaurio</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Ingrese correo" {...field} />
+                                    <Input placeholder="Ingrese clave" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -85,7 +90,7 @@ export default function FormLogin() {
 
 
                     <div className="flex flex-col-reverse col-start-1">
-                        <Button type="submit" > Iniciar sesion </Button>
+                        <Button type="submit" variant={'blue'} > Iniciar sesion </Button>
                     </div>
 
                 </form>

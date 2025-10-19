@@ -5,18 +5,22 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { useUser } from "@/contextApi/context-auth";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
     const { isUserLoggedIn } = useUser();
     const router = useRouter();
 
-    // mientras no hay usuario, mandamos al login
+    const [checking, setChecking] = useState(true);
     useEffect(() => {
         if (!isUserLoggedIn()) {
             router.push("/login");
+        } else {
+            setChecking(false);
         }
-    }, [isUserLoggedIn]);
+    }, []);
+
+    if (checking) return null;
 
     return (
         <div lang="en">

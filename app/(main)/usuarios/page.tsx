@@ -26,8 +26,8 @@ export default function PageUsuarios() {
 
                 if (response.status === 401) {
                     clearUser()
+                    return
                 }
-
 
                 if (response.ok) {
                     const data = await response.json()

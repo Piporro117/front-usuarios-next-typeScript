@@ -14,6 +14,8 @@ export default function Home() {
   useEffect(() => {
     if (!isUserLoggedIn()) {
       router.push("/login");
+    } else {
+      router.push("/usuarios")
     }
   }, []);
 

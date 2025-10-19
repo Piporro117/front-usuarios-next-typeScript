@@ -6,17 +6,47 @@ import { z } from "zod"
 // schema base para crear un usaurio y obtener datos de este
 export const UsuarioSchema = z.object({
     user_id: z.number().optional(),
+    user_clave: z.string().optional(),
     user_name: z.string().optional(),
+    user_ape_pat: z.string().optional(),
+    user_ape_mat: z.string().optional(),
     user_email: z.string().optional(),
+    user_telef: z.number().optional(),
+    user_rol: z.string().optional(),
+    user_estatus: z.string().optional(),
     password: z.string().optional(),
     created_date: z.string().optional()
 }).superRefine((data, ctx) => {
+
+    if (!data.user_clave) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligaortio',
+            path: ["user_clave"]
+        })
+    }
 
     if (!data.user_name) {
         ctx.addIssue({
             code: 'custom',
             message: 'Campo obligaortio',
             path: ["user_name"]
+        })
+    }
+
+    if (!data.user_ape_mat) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_ape_mat']
+        })
+    }
+
+    if (!data.user_ape_pat) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_ape_pat']
         })
     }
 
@@ -28,6 +58,21 @@ export const UsuarioSchema = z.object({
         })
     }
 
+    if (!data.user_telef) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_telef']
+        })
+    }
+
+    if (!data.user_rol) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_rol']
+        })
+    }
 
     if (!data.password) {
         ctx.addIssue({
@@ -42,6 +87,10 @@ export const UsuarioSchema = z.object({
 // schema para la edicion de un usaurio
 export const UsuarioEditSchema = UsuarioSchema.pick({
     user_name: true,
+    user_ape_mat: true,
+    user_ape_pat: true,
+    user_rol: true,
+    user_telef: true,
     user_email: true
 }).superRefine((data, ctx) => {
     if (!data.user_name) {
@@ -49,6 +98,38 @@ export const UsuarioEditSchema = UsuarioSchema.pick({
             code: 'custom',
             message: 'Campo obligatorio',
             path: ['user_name']
+        })
+    }
+
+    if (!data.user_ape_mat) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_ape_mat']
+        })
+    }
+
+    if (!data.user_ape_pat) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_ape_pat']
+        })
+    }
+
+    if (!data.user_telef) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_telef']
+        })
+    }
+
+    if (!data.user_rol) {
+        ctx.addIssue({
+            code: 'custom',
+            message: 'Campo obligatorio',
+            path: ['user_rol']
         })
     }
 
