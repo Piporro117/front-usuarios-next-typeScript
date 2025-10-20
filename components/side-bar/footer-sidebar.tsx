@@ -1,9 +1,12 @@
 import { cn } from "@/lib/utils"
-import { CircleUserRound, ChevronUp, LucideProps } from "lucide-react"
+import { CircleUserRound, ChevronUp, LucideProps, LogOut } from "lucide-react"
 import { SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "../ui/sidebar"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { ForwardRefExoticComponent, RefAttributes, useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useUser } from "@/contextApi/context-auth"
+import { toast } from "sonner"
 
 type FooterSideBarProps = {
     titulo: string
@@ -18,6 +21,25 @@ type FooterSideBarProps = {
 export default function FooterSiderBarComponent({ titulo, items }: FooterSideBarProps) {
 
     const [open, setOpen] = useState(false)
+
+    const router = useRouter()
+
+    const { logout } = useUser()
+
+    async function onClick() {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
+            method: 'POST',
+            credentials: 'include'
+        })
+
+        if (response.ok) {
+            toast.success("Cerrado de sesion exitoso")
+            logout()
+            router.push('/login')
+        } else {
+            toast.error("Error al salir de la sesion")
+        }
+    }
 
     return (
         <SidebarFooter>
@@ -52,6 +74,11 @@ export default function FooterSiderBarComponent({ titulo, items }: FooterSideBar
                                     </DropdownMenuItem>
                                 )
                             })}
+
+                            <DropdownMenuItem onClick={onClick}>
+                                <LogOut />
+                                Cerrar sesion
+                            </DropdownMenuItem>
 
                         </DropdownMenuContent>
                     </DropdownMenu>

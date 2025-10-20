@@ -53,16 +53,6 @@ const itemsFooter = [
         title: 'Perfil',
         url: '#',
         icon: LandPlot
-    },
-    {
-        title: 'Configuración',
-        url: '#',
-        icon: LandPlot
-    },
-    {
-        title: 'Cerrar sesion',
-        url: '#',
-        icon: LandPlot
     }
 ]
 
@@ -76,11 +66,6 @@ const itemsUsuarios = [
     {
         title: "Nuevo usuario",
         url: "/usuarios/new",
-        icon: UserPlus,
-    },
-    {
-        title: "Logout",
-        url: "/usuarios/logout",
         icon: UserPlus,
     },
 ]
