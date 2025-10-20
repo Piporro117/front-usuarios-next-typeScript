@@ -62,12 +62,7 @@ const itemsUsuarios = [
         title: "Ver usuarios",
         url: "/usuarios",
         icon: Users,
-    },
-    {
-        title: "Nuevo usuario",
-        url: "/usuarios/new",
-        icon: UserPlus,
-    },
+    }
 ]
 export function SideBar() {
 

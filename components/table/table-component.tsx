@@ -16,15 +16,23 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "
 import { useState } from "react"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { useRouter } from "next/navigation"
+import { Plus } from "lucide-react"
 
 type DataTableProps<TData, TValue> = {
     columns: ColumnDef<TData, TValue>[]
     data: TData[],
     filterBy: string,
-    onRowDoubleClick?: (rowData: TData) => void
+    onRowDoubleClick?: (rowData: TData) => void,
+    onRowClick?: (rowData: TData) => void,
+    mensajeFiltro: string,
+    routeBase: string
 }
 
-export default function TableComponente<TData, TValue>({ columns, data, filterBy, onRowDoubleClick }: DataTableProps<TData, TValue>) {
+export default function TableComponente<TData, TValue>({ columns, data, filterBy, onRowDoubleClick, onRowClick, mensajeFiltro, routeBase }: DataTableProps<TData, TValue>) {
+
+    // redireccionamiento de boton nuevo
+    const router = useRouter()
 
     // state de filtrado
     const [sorting, setSorting] = useState<SortingState>([])
@@ -54,15 +62,18 @@ export default function TableComponente<TData, TValue>({ columns, data, filterBy
         <>
 
             { /** BUSQUEDA FILTRADOS */}
-            <div className="flex items-center py-4">
+            <div className="flex items-center justify-between py-4">
                 <Input
-                    placeholder={`Filtrar por ${filterBy ?? "columna"}...`}
+                    placeholder={`Filtrar por ${mensajeFiltro ?? "columna"}...`}
                     className="max-w-sm"
                     value={(table.getColumn(filterBy)?.getFilterValue() as string) ?? ""}
                     onChange={(event) => {
                         table.getColumn(filterBy)?.setFilterValue(event.target.value)
                     }}
                 />
+
+                {/** Boton de redireccionamiento */}
+                <Button variant={'blue'} size={'lg'} onClick={() => router.push(`${routeBase}/new`)}><Plus /> Nuevo </Button>
             </div>
 
             <div className="overflow-hidden rounded-md border">
@@ -90,7 +101,11 @@ export default function TableComponente<TData, TValue>({ columns, data, filterBy
                         {table.getRowModel().rows?.length ?
                             (
                                 table.getRowModel().rows.map((row) => (
-                                    <TableRow key={row.id} data-state={row.getIsSelected() && "selected"} onDoubleClick={() => onRowDoubleClick?.(row.original)}>
+                                    <TableRow key={row.id}
+                                        data-state={row.getIsSelected() && "selected"}
+                                        onDoubleClick={() => onRowDoubleClick?.(row.original)}
+                                        onClick={() => onRowClick?.(row.original)}
+                                        className="hover: cursor-pointer">
                                         {row.getVisibleCells().map((cell) => (
                                             <TableCell key={cell.id}>
                                                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

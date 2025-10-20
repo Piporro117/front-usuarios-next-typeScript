@@ -79,7 +79,7 @@ export default function PageEditUsuario() {
     async function onSubmit(data: Usuario) {
         try {
 
-            const user_id = usuario?.id
+            const user_id = usuario?.user_id
             const response = await fetch(`http://localhost:5000/api/auth/editarUsuario/${user_id}`, {
                 method: 'POST',
                 headers: {

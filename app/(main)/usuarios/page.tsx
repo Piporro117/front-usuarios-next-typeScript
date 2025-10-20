@@ -1,5 +1,4 @@
 "use client"
-import { ChartAreaDefault } from "@/components/graficos/areaChart"
 import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
@@ -19,7 +18,7 @@ export default function PageUsuarios() {
         // funcion para trear los usaurios
         async function fetchUsuarios() {
             try {
-                const response = await fetch("http://localhost:5000/api/auth/consultarUsuarios", {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/consultarUsuarios`, {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -32,14 +31,12 @@ export default function PageUsuarios() {
                 if (response.ok) {
                     const data = await response.json()
                     setUsuarios(data)
-                    console.log(data)
                 }
 
             } catch (error) {
                 console.log(error)
             }
         }
-        console.log('user', user)
         fetchUsuarios()
     }, [])
 
@@ -55,11 +52,12 @@ export default function PageUsuarios() {
                 onRowDoubleClick={(usuario) => {
                     router.push(`/usuarios/${usuario.user_id}`)
                 }}
+                onRowClick={(usuario) => console.log("usuario", usuario)}
+                mensajeFiltro="email del usuario"
+                routeBase="usuarios"
             />
 
-
-            <ChartAreaDefault usuarios={usuarios} />
-
+            {/**  <ChartAreaDefault usuarios={usuarios} /> */}
 
         </div>
     )

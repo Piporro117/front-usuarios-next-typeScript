@@ -27,7 +27,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             <div>
                 <SidebarProvider>
                     <SideBar />
-                    <div className="mt-10 ml-14 w-full mr-3">
+                    <div className="mt-10 ml-14 w-full mr-10">
                         {children}
                     </div>
                 </SidebarProvider>
