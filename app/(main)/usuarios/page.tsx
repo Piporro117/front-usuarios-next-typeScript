@@ -1,10 +1,12 @@
 "use client"
+import DialogUser from "@/components/dialogs/dialogUser"
 import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
 import { ColumnasUsuario, Usuario } from "@/zod/usuario-schema"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { boolean } from "zod"
 
 export default function PageUsuarios() {
 
@@ -12,6 +14,8 @@ export default function PageUsuarios() {
 
     const { user, clearUser } = useUser()
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
+    const [open, setOpen] = useState(false)
+    const [usuarioSeleccionado, setusaurioSeleccionado] = useState<Usuario | undefined>(undefined)
 
     useEffect(() => {
 
@@ -52,10 +56,17 @@ export default function PageUsuarios() {
                 onRowDoubleClick={(usuario) => {
                     router.push(`/usuarios/${usuario.user_id}`)
                 }}
-                onRowClick={(usuario) => console.log("usuario", usuario)}
+                onRowClick={(usuario) => {
+                    setusaurioSeleccionado(usuario)
+                    setOpen(true)
+                }}
                 mensajeFiltro="email del usuario"
                 routeBase="usuarios"
             />
+
+            {usuarioSeleccionado && (
+                <DialogUser open={open} setOpen={setOpen} usuario={usuarioSeleccionado} />
+            )}
 
             {/**  <ChartAreaDefault usuarios={usuarios} /> */}
 
