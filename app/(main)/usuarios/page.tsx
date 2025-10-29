@@ -6,13 +6,12 @@ import { useUser } from "@/contextApi/context-auth"
 import { ColumnasUsuario, Usuario } from "@/zod/usuario-schema"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { boolean } from "zod"
 
 export default function PageUsuarios() {
 
     const router = useRouter()
 
-    const { user, clearUser } = useUser()
+    const { clearUser } = useUser()
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
     const [open, setOpen] = useState(false)
     const [usuarioSeleccionado, setusaurioSeleccionado] = useState<Usuario | undefined>(undefined)

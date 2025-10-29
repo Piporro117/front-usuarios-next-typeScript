@@ -6,31 +6,16 @@ import {
     SidebarGroupContent,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, Users, UserPlus } from "lucide-react"
+import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, Users, UserPlus, Router, RadioTower } from "lucide-react"
 import MenuCollapsableSidebar from "./menu-collapsable"
 import HeaderSideBarComponent from "./header-siderbar"
 import FooterSiderBarComponent from "./footer-sidebar"
 
 const itemsMedidores = [
     {
-        title: "Toma de lectura",
-        url: "#",
-        icon: BookOpenCheck,
-    },
-    {
-        title: "Corte de servicio",
-        url: "#",
-        icon: Scissors,
-    },
-    {
-        title: "Reconexión de servicio",
-        url: "#",
-        icon: Unplug,
-    },
-    {
-        title: "Enviar hexadecimal",
-        url: "#",
-        icon: ScanBarcode,
+        title: "Ver dispositivos",
+        url: "/dispositivos",
+        icon: Router,
     },
 ]
 
@@ -76,6 +61,8 @@ export function SideBar() {
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupContent>
+
+                            <MenuCollapsableSidebar titulo="Dispositivos" items={itemsMedidores} />
 
                             <MenuCollapsableSidebar titulo="Usuarios" items={itemsUsuarios} />
 
