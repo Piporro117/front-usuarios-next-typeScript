@@ -18,7 +18,7 @@ export default function PageDispositivo() {
         async function fetchDispositivos() {
             try {
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/consultarUsuarios`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/device/consultarDispositivos`, {
                     method: 'GET',
                     credentials: 'include'
                 })

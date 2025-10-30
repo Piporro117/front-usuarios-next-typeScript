@@ -9,10 +9,13 @@ import { Button } from "../ui/button"
 import { Label } from "../ui/label"
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { useUser } from "@/contextApi/context-auth"
 
 export default function FormularioUsuario() {
 
     const router = useRouter()
+
+    const { clearUser } = useUser()
 
     // creacion del formulario
     const form = useForm<Usuario>({
@@ -28,19 +31,25 @@ export default function FormularioUsuario() {
     async function onSubmit(data: Usuario) {
         try {
 
-            const response = await fetch("http://localhost:5000/api/auth/register", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
+                credentials: 'include',
                 body: JSON.stringify(data)
             })
+
+            if (response.status === 401) {
+                clearUser()
+                return
+            }
 
             if (response.ok) {
                 toast.success("Usuario creado exitosamente")
                 router.push('/usuarios')
             } else {
-                toast.error("Errror al crear formulario")
+                toast.error("Error al crear usuario")
                 return
             }
 
