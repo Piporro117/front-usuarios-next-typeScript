@@ -1,5 +1,6 @@
 "use client"
 
+import DialogDispositivo from "@/components/dialogs/dialogDispositivo"
 import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
@@ -13,6 +14,9 @@ export default function PageDispositivo() {
 
     const { clearUser } = useUser()
     const [dispositivos, setDispositivos] = useState<Dispositivo[]>([])
+    const [open, setOpen] = useState(false)
+    const [dispositivoSeleccionado, setDispositivoSeleccionado] = useState<Dispositivo | undefined>(undefined)
+
 
     useEffect(() => {
         async function fetchDispositivos() {
@@ -29,7 +33,7 @@ export default function PageDispositivo() {
                 }
 
                 if (response.ok) {
-                    const data = await response.json()
+                    const data: Dispositivo[] = await response.json()
                     setDispositivos(data)
                 }
 
@@ -52,7 +56,15 @@ export default function PageDispositivo() {
                 filterBy="dev_nombre"
                 mensajeFiltro="Filtrar por nombre"
                 routeBase="dispositivos"
+                onRowClick={(disp) => {
+                    setDispositivoSeleccionado(disp)
+                    setOpen(true)
+                }}
             />
+
+            {dispositivoSeleccionado && (
+                <DialogDispositivo open={open} setOpen={setOpen} dispositivo={dispositivoSeleccionado} />
+            )}
 
         </div>
     )
