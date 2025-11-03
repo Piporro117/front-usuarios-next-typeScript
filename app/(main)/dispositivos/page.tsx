@@ -45,6 +45,10 @@ export default function PageDispositivo() {
         fetchDispositivos()
     }, [])
 
+    /**
+     * 
+     */
+
     return (
         <div>
 

@@ -6,6 +6,7 @@ import { Respuesta } from "@/zod/response-schema"
 import { toast } from "sonner"
 import { Button } from "../ui/button"
 import { FileChartColumn } from "lucide-react"
+import { Lectura } from "@/zod/sensorReading-schema"
 
 
 type DialogDispositivoProps = {
@@ -18,14 +19,14 @@ export default function DialogDispositivo({ dispositivo, open, setOpen }: Dialog
 
     const { clearUser } = useUser()
 
-    const [respuesta, setRespuesta] = useState<Respuesta | undefined>(undefined)
+    const [respuesta, setRespuesta] = useState<Lectura | undefined>(undefined)
 
     useEffect(() => {
         async function fetchRespuestaDispositivo() {
 
             try {
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/response/obtenerRespuestaPorEUI/${dispositivo.dev_eui}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/response/consultarLecturaRecientePorDevice/${dispositivo.dev_num_ser}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -36,7 +37,7 @@ export default function DialogDispositivo({ dispositivo, open, setOpen }: Dialog
                 }
 
                 if (response.ok) {
-                    const data: Respuesta = await response.json()
+                    const data: Lectura = await response.json()
                     setRespuesta(data)
                 } else {
                     const error: { error: string, mensaje: string } = await response.json()
@@ -52,7 +53,6 @@ export default function DialogDispositivo({ dispositivo, open, setOpen }: Dialog
 
         fetchRespuestaDispositivo()
     }, [dispositivo])
-
 
     return (
         <div>
@@ -76,17 +76,17 @@ export default function DialogDispositivo({ dispositivo, open, setOpen }: Dialog
 
                             <div className="flex-col">
                                 <section className="font-bold"> Flujo del agua </section>
-                                <section> {respuesta ? respuesta.resp_fluj_act : ' - '}</section>
+                                <section> {respuesta ? respuesta.instantaneous_flow : ' - '}</section>
                             </div>
 
                             <div className="flex-col">
                                 <section className="font-bold"> Estado valvula </section>
-                                <section> {respuesta ? respuesta.resp_valv_estatus : ' - '}</section>
+                                <section> {respuesta ? (respuesta.valve_is_open ? 'Abierto' : (respuesta.valve_is_closed ? 'Cerrada' : "Error")) : ' - '}</section>
                             </div>
 
                             <div className="flex-col">
-                                <section className="font-bold"> Temperatura agua </section>
-                                <section> {respuesta ? respuesta.resp_temp_agua : ' - '}</section>
+                                <section className="font-bold"> Temperatura agua ( Centigrados ) </section>
+                                <section>{respuesta ? (respuesta.water_temperature ? Math.round(respuesta.water_temperature * 100) : " error temp") : ' - '}</section>
                             </div>
 
 

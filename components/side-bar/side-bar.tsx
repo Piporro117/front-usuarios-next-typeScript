@@ -6,7 +6,7 @@ import {
     SidebarGroupContent,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, Users, UserPlus, Router, RadioTower } from "lucide-react"
+import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, Users, UserPlus, Router, RadioTower, FileSearch } from "lucide-react"
 import MenuCollapsableSidebar from "./menu-collapsable"
 import HeaderSideBarComponent from "./header-siderbar"
 import FooterSiderBarComponent from "./footer-sidebar"
@@ -18,6 +18,15 @@ const itemsMedidores = [
         icon: Router,
     },
 ]
+
+const itemsLecturas = [
+    {
+        title: "Ver lecturas",
+        url: "/lecturas",
+        icon: FileSearch
+    }
+]
+
 
 
 const itemsVisualizacionDatos = [
@@ -61,6 +70,8 @@ export function SideBar() {
                 <SidebarContent>
                     <SidebarGroup>
                         <SidebarGroupContent>
+
+                            <MenuCollapsableSidebar titulo="Lecturas" items={itemsLecturas} />
 
                             <MenuCollapsableSidebar titulo="Dispositivos" items={itemsMedidores} />
 

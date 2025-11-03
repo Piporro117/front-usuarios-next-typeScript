@@ -21,3 +21,27 @@ export function convertirFecha(data: string | undefined): string {
     return 'Conversion fallo'
   }
 }
+
+// función para convertir fecha de Flask en fecha visible con hora en formato 24h
+export function convertirFechaConHora(data: string | undefined): string {
+  if (data) {
+    const date = new Date(data)
+
+    const fecha = date.toLocaleDateString("es-MX", {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    })
+
+    const hora = date.toLocaleTimeString("es-MX", {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false // esto fuerza el formato 24 horas
+    })
+
+    return `${fecha} ${hora}`
+  } else {
+    return 'Conversión falló'
+  }
+}
+
