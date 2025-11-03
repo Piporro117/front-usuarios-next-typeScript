@@ -49,6 +49,8 @@ export const LecturaSchema = z.object({
     rust_removal_count: z.number().optional(),
     rust_removal_state: z.string().optional(),
     flow_alarm_serial_number: z.number().optional(),
+    // datos extras
+    dev_nombre: z.string().optional()
 })
 
 export type Lectura = z.infer<typeof LecturaSchema>
@@ -61,8 +63,8 @@ export const ColumnasLectura: ColumnDef<Lectura>[] = [
         header: 'ID'
     },
     {
-        accessorKey: 'device_eui',
-        header: 'Numero dispositivo'
+        accessorKey: 'dev_nombre',
+        header: 'Nombre dispositivo'
     },
     {
         accessorKey: 'cumulative_water_volume',
@@ -111,5 +113,6 @@ export const ColumnasLectura: ColumnDef<Lectura>[] = [
         cell: ({ row }) => {
             return convertirFechaConHora(row.original.received_at)
         }
-    }
+    },
+
 ]

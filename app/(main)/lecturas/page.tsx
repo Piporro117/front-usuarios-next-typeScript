@@ -50,7 +50,7 @@ export default function PageLecturas() {
             <TableComponente
                 columns={ColumnasLectura}
                 data={lecturas}
-                filterBy="device_eui"
+                filterBy="dev_nombre"
                 mensajeFiltro="Filtra por EUI"
                 routeBase="lectura"
             />
