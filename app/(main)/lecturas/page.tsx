@@ -51,7 +51,7 @@ export default function PageLecturas() {
                 columns={ColumnasLectura}
                 data={lecturas}
                 filterBy="dev_nombre"
-                mensajeFiltro="Filtra por EUI"
+                mensajeFiltro="Filtra nombre de dispositivo"
                 routeBase="lectura"
             />
 

@@ -68,11 +68,11 @@ export const ColumnasLectura: ColumnDef<Lectura>[] = [
     },
     {
         accessorKey: 'cumulative_water_volume',
-        header: 'Agua acomulada'
+        header: 'Lectura de agua acomulada'
     },
     {
         accessorKey: 'water_temperature',
-        header: 'Temperatura agua',
+        header: 'Temperatura del agua ( Centigrados )',
         cell: ({ row }) => {
 
             const temperatura = row.original.water_temperature
@@ -90,7 +90,7 @@ export const ColumnasLectura: ColumnDef<Lectura>[] = [
     },
     {
         accessorKey: 'instantaneous_flow',
-        header: 'Flujo instanteneo'
+        header: 'Flujo instantaneo'
     },
     {
         header: 'Estado valvula',
