@@ -77,7 +77,7 @@ export default function PageInfoUsuario() {
 
                 <div className="border-b border-green-400 py-2 px-6">
                     <Label className="font-bold text-2xl mb-4"> Nombre: </Label>
-                    <Label> {usuario?.user_name?.toUpperCase()}</Label>
+                    <Label> {usuario?.user_nombre?.toUpperCase()}</Label>
                 </div>
 
                 <div className="border-b border-green-400 py-2 px-6">

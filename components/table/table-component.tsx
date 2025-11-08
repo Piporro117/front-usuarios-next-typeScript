@@ -26,10 +26,11 @@ type DataTableProps<TData, TValue> = {
     onRowDoubleClick?: (rowData: TData) => void,
     onRowClick?: (rowData: TData) => void,
     mensajeFiltro: string,
-    routeBase: string
+    routeBase: string,
+    ocultarBotonNuevo?: boolean,
 }
 
-export default function TableComponente<TData, TValue>({ columns, data, filterBy, onRowDoubleClick, onRowClick, mensajeFiltro, routeBase }: DataTableProps<TData, TValue>) {
+export default function TableComponente<TData, TValue>({ columns, data, filterBy, onRowDoubleClick, onRowClick, mensajeFiltro, routeBase, ocultarBotonNuevo }: DataTableProps<TData, TValue>) {
 
     // redireccionamiento de boton nuevo
     const router = useRouter()
@@ -73,7 +74,9 @@ export default function TableComponente<TData, TValue>({ columns, data, filterBy
                 />
 
                 {/** Boton de redireccionamiento */}
-                <Button variant={'blue'} size={'lg'} onClick={() => router.push(`${routeBase}/new`)}><Plus /> Nuevo </Button>
+                {!ocultarBotonNuevo && (
+                    <Button variant={'blue'} size={'lg'} onClick={() => router.push(`${routeBase}/new`)}><Plus /> Nuevo </Button>
+                )}
             </div>
 
             <div className="overflow-hidden rounded-md border">

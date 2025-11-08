@@ -61,13 +61,12 @@ export default function PageUsuarios() {
                 }}
                 mensajeFiltro="email del usuario"
                 routeBase="usuarios"
+                ocultarBotonNuevo
             />
 
             {usuarioSeleccionado && (
                 <DialogUser open={open} setOpen={setOpen} usuario={usuarioSeleccionado} />
             )}
-
-            {/**  <ChartAreaDefault usuarios={usuarios} /> */}
 
         </div>
     )

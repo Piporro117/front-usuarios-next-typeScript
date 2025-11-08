@@ -19,7 +19,7 @@ export default function FormLogin() {
     const form = useForm<UsuarioLogin>({
         resolver: zodResolver(UsuarioLoginSchema),
         defaultValues: {
-            password: '',
+            user_password: '',
             user_clave: '',
         }
     })
@@ -75,7 +75,7 @@ export default function FormLogin() {
 
                     <FormField
                         control={form.control}
-                        name="password"
+                        name="user_password"
                         render={({ field }) => (
                             <FormItem className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2">
                                 <FormLabel>Contraseña</FormLabel>

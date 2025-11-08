@@ -16,7 +16,7 @@ type MenuCollapsableSidebarProps = {
 
 export default function MenuCollapsableSidebar({ titulo, items }: MenuCollapsableSidebarProps) {
 
-    const [open, setOpen] = useState(true)
+    const [open, setOpen] = useState(false)
 
 
     return (

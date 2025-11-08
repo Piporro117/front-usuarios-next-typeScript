@@ -10,6 +10,8 @@ export const DispositivoSchema = z.object({
     id_zona: z.number().nullable().optional(),
     dev_descr: z.string().optional(),
     dev_tipo: z.string().optional(),
+    dev_lat: z.float64().optional(),
+    dev_long: z.float64().optional(),
     dev_estatus: z.string().optional(),
     created_date: z.string().optional()
 }).superRefine((data, ctx) => {

@@ -4,22 +4,24 @@ import TriangleLoader from "@/components/loader"
 import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
-import { ColumnasLectura, Lectura } from "@/zod/sensorReading-schema"
+import { ColumnasGateway, Gateway } from "@/zod/gateway-schema"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"
 
-export default function PageLecturas() {
+export default function PageGateway() {
 
-    const { clearUser } = useUser()
-    const [lecturas, setLecturas] = useState<Lectura[]>([])
+    const { clearUser, user } = useUser()
+    const [gateways, setGateways] = useState<Gateway[]>([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
 
-        async function fetchLectura() {
+        async function fetchGateways() {
             try {
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/response/consultarTodasLecturas`, {
+                const rol = user?.user_rol
+
+                const response = await fetch(rol === "admin" ? `${process.env.NEXT_PUBLIC_API_URL}/api/gateway/consultarTodos` : `${process.env.NEXT_PUBLIC_API_URL}/api/gateway/consultarTodoPorUsu/${user?.user_id}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -30,21 +32,21 @@ export default function PageLecturas() {
                 }
 
                 if (response.ok) {
-                    const data: Lectura[] = await response.json()
-                    setLecturas(data)
+                    const data: Gateway[] = await response.json()
+                    setGateways(data)
                     setLoading(false)
                 } else {
-                    toast.error("Error al obtener las lecturas")
+                    toast.error("Error el obtener los gateways")
                     setLoading(false)
                 }
 
             } catch (error) {
-                toast.error("Error en el fetch")
+                console.log(error)
                 setLoading(false)
             }
         }
 
-        fetchLectura()
+        fetchGateways()
     }, [])
 
     return (
@@ -52,19 +54,21 @@ export default function PageLecturas() {
 
             {loading ? (<TriangleLoader />) : (
                 <div>
-                    <Label className="text-3xl"> SISTEMA DE MONITOREO DE LECTURAS </Label>
+                    <Label className="text-3xl"> GATEWAYS DEL USUARIO {user?.user_nombre?.toUpperCase()}</Label>
 
                     <TableComponente
-                        columns={ColumnasLectura}
-                        data={lecturas}
-                        filterBy="dev_nombre"
-                        mensajeFiltro="nombre de dispositivo"
-                        routeBase="lectura"
+                        columns={ColumnasGateway}
+                        data={gateways}
+                        filterBy="gate_nombre"
+                        mensajeFiltro="nombre"
+                        routeBase="gateway"
                         ocultarBotonNuevo
                     />
                 </div>
             )}
 
+
         </div>
     )
+
 }

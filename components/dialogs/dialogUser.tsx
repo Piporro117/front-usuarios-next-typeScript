@@ -28,7 +28,7 @@ export default function DialogUser({ usuario, open, setOpen }: DialogUserProp) {
 
                         <div className="flex-col">
                             <section className="font-bold"> Nombre usuario </section>
-                            <section> {usuario.user_name}</section>
+                            <section> {usuario.user_nombre}</section>
                         </div>
 
                         <div className="flex-col">

@@ -21,8 +21,8 @@ export default function FormularioUsuario() {
     const form = useForm<Usuario>({
         resolver: zodResolver(UsuarioSchema),
         defaultValues: {
-            user_name: '',
-            password: '',
+            user_nombre: '',
+            user_password: '',
             user_email: '',
         }
     })
@@ -66,7 +66,7 @@ export default function FormularioUsuario() {
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-7">
                     <FormField
                         control={form.control}
-                        name="user_name"
+                        name="user_nombre"
                         render={({ field }) => (
                             <FormItem className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2">
                                 <FormLabel>Nombre del usuario</FormLabel>
@@ -94,7 +94,7 @@ export default function FormularioUsuario() {
 
                     <FormField
                         control={form.control}
-                        name="password"
+                        name="user_password"
                         render={({ field }) => (
                             <FormItem className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2">
                                 <FormLabel>Contraseña</FormLabel>

@@ -73,16 +73,6 @@ export const ColumnasLectura: ColumnDef<Lectura>[] = [
     {
         accessorKey: 'water_temperature',
         header: 'Temperatura del agua ( Centigrados )',
-        cell: ({ row }) => {
-
-            const temperatura = row.original.water_temperature
-
-            if (temperatura) {
-                return Math.round(temperatura * 100)
-            } else {
-                return ' - '
-            }
-        }
     },
     {
         accessorKey: 'last_valve_command',

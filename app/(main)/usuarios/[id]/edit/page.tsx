@@ -59,7 +59,7 @@ export default function PageEditUsuario() {
     const form = useForm<UsuarioEdit>({
         resolver: zodResolver(UsuarioEditSchema),
         defaultValues: {
-            user_name: usuario?.user_name ?? '',
+            user_nombre: usuario?.user_nombre ?? '',
             user_email: usuario?.user_email ?? ''
         }
     })
@@ -68,7 +68,7 @@ export default function PageEditUsuario() {
     useEffect(() => {
         if (usuario) {
             form.reset({
-                user_name: usuario.user_name,
+                user_nombre: usuario.user_nombre,
                 user_email: usuario.user_email
             })
         }
@@ -119,7 +119,7 @@ export default function PageEditUsuario() {
 
                             <FormField
                                 control={form.control}
-                                name="user_name"
+                                name="user_nombre"
                                 render={({ field }) => (
                                     <FormItem className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2">
                                         <FormLabel>Nombre del usuario</FormLabel>

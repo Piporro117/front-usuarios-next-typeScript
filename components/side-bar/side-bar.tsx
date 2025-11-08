@@ -6,17 +6,19 @@ import {
     SidebarGroupContent,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, Users, UserPlus, Router, RadioTower, FileSearch } from "lucide-react"
+import { BookOpenCheck, Scissors, Unplug, ScanBarcode, Satellite, LandPlot, Users, UserPlus, Router, RadioTower, FileSearch, icons } from "lucide-react"
 import MenuCollapsableSidebar from "./menu-collapsable"
 import HeaderSideBarComponent from "./header-siderbar"
 import FooterSiderBarComponent from "./footer-sidebar"
+import { useUser } from "@/contextApi/context-auth"
 
-const itemsMedidores = [
+
+const itemsFooter = [
     {
-        title: "Ver dispositivos",
-        url: "/dispositivos",
-        icon: Router,
-    },
+        title: 'Perfil',
+        url: '#',
+        icon: LandPlot
+    }
 ]
 
 const itemsLecturas = [
@@ -27,30 +29,6 @@ const itemsLecturas = [
     }
 ]
 
-
-
-const itemsVisualizacionDatos = [
-    {
-        title: "Ver respuestas",
-        url: "#",
-        icon: Satellite,
-    },
-    {
-        title: 'Buscar medidor',
-        url: '#',
-        icon: LandPlot
-    }
-]
-
-const itemsFooter = [
-    {
-        title: 'Perfil',
-        url: '#',
-        icon: LandPlot
-    }
-]
-
-
 const itemsUsuarios = [
     {
         title: "Ver usuarios",
@@ -58,7 +36,17 @@ const itemsUsuarios = [
         icon: Users,
     }
 ]
+
+const itemsGateway = [
+    {
+        title: "Ver tus gateways",
+        url: "/gateway",
+        icon: Router,
+    }
+]
 export function SideBar() {
+
+    const { user } = useUser()
 
     return (
         <div className="relative">
@@ -71,11 +59,13 @@ export function SideBar() {
                     <SidebarGroup>
                         <SidebarGroupContent>
 
+                            <MenuCollapsableSidebar titulo="Gateways" items={itemsGateway} />
+
                             <MenuCollapsableSidebar titulo="Lecturas" items={itemsLecturas} />
 
-                            <MenuCollapsableSidebar titulo="Dispositivos" items={itemsMedidores} />
-
-                            <MenuCollapsableSidebar titulo="Usuarios" items={itemsUsuarios} />
+                            {user?.user_rol === "admin" && (
+                                <MenuCollapsableSidebar titulo="Usuarios" items={itemsUsuarios} />
+                            )}
 
                         </SidebarGroupContent>
                     </SidebarGroup>

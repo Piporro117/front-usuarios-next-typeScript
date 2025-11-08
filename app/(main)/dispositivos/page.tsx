@@ -5,12 +5,9 @@ import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
 import { ColumnasDispositivo, Dispositivo } from "@/zod/device-schema"
-import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function PageDispositivo() {
-
-    const router = useRouter()
 
     const { clearUser } = useUser()
     const [dispositivos, setDispositivos] = useState<Dispositivo[]>([])
@@ -45,10 +42,6 @@ export default function PageDispositivo() {
         fetchDispositivos()
     }, [])
 
-    /**
-     * 
-     */
-
     return (
         <div>
 
@@ -64,6 +57,7 @@ export default function PageDispositivo() {
                     setDispositivoSeleccionado(disp)
                     setOpen(true)
                 }}
+                ocultarBotonNuevo
             />
 
             {dispositivoSeleccionado && (
