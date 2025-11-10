@@ -37,7 +37,7 @@ export default function PageEditUsuario() {
 
         async function fetchUsuario() {
             try {
-                const response = await fetch(`http://localhost:5000/api/auth/obtenerUsuario/${idNumber}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/obtenerUsuario/${idNumber}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -86,7 +86,7 @@ export default function PageEditUsuario() {
         try {
 
             const user_id = usuario?.user_id
-            const response = await fetch(`http://localhost:5000/api/auth/editarUsuario/${user_id}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/editarUsuario/${user_id}`, {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"

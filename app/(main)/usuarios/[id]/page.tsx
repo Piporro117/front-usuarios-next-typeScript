@@ -30,7 +30,7 @@ export default function PageInfoUsuario() {
         // funcion parar hacer fetch y traer la info del usuairo
         async function fetchUsuario() {
             try {
-                const response = await fetch(`http://localhost:5000/api/auth/obtenerUsuario/${idNumber}`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/obtenerUsuario/${idNumber}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -56,7 +56,7 @@ export default function PageInfoUsuario() {
     // handler delete 
     async function deleteHandler() {
         try {
-            const response = await fetch(`http://localhost:5000/api/auth/eliminarUsuario/${idNumber}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/eliminarUsuario/${idNumber}`, {
                 method: 'DELETE'
             })
 
