@@ -33,6 +33,7 @@ export default function PageLecturas() {
                     const data: Lectura[] = await response.json()
                     setLecturas(data)
                     setLoading(false)
+                    console.log(data)
                 } else {
                     toast.error("Error al obtener las lecturas")
                     setLoading(false)

@@ -72,7 +72,7 @@ export function SideBar() {
                 </SidebarContent>
 
                 {/** footer de sidebar */}
-                <FooterSiderBarComponent titulo="Usuario" items={itemsFooter} />
+                <FooterSiderBarComponent titulo="Usuario" />
             </Sidebar>
 
             <SidebarTrigger className="absolute top-4 right-[-40px] " />

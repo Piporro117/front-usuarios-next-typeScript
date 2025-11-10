@@ -13,7 +13,7 @@ import { toast } from "sonner"
 export default function PageInfoUsuario() {
 
     const { id } = useParams()
-    const { clearUser } = useUser()
+    const { clearUser, user } = useUser()
     const router = useRouter()
 
     const [usuario, setUsaurio] = useState<Usuario | undefined>(undefined)
@@ -21,6 +21,11 @@ export default function PageInfoUsuario() {
     const idNumber = id ? Number(id) : undefined
 
     useEffect(() => {
+
+        if (user?.user_rol !== "admin") {
+            router.push("/gateway")
+            return
+        }
 
         // funcion parar hacer fetch y traer la info del usuairo
         async function fetchUsuario() {

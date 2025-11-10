@@ -11,12 +11,17 @@ export default function PageUsuarios() {
 
     const router = useRouter()
 
-    const { clearUser } = useUser()
+    const { clearUser, user } = useUser()
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
     const [open, setOpen] = useState(false)
     const [usuarioSeleccionado, setusaurioSeleccionado] = useState<Usuario | undefined>(undefined)
 
     useEffect(() => {
+
+        if (user?.user_rol !== "admin") {
+            router.push("/gateway")
+            return
+        }
 
         // funcion para trear los usaurios
         async function fetchUsuarios() {

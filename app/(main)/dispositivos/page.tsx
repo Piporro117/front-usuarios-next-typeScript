@@ -5,17 +5,24 @@ import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
 import { ColumnasDispositivo, Dispositivo } from "@/zod/device-schema"
+import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function PageDispositivo() {
-
-    const { clearUser } = useUser()
+    const router = useRouter()
+    const { clearUser, user } = useUser()
     const [dispositivos, setDispositivos] = useState<Dispositivo[]>([])
     const [open, setOpen] = useState(false)
     const [dispositivoSeleccionado, setDispositivoSeleccionado] = useState<Dispositivo | undefined>(undefined)
 
 
     useEffect(() => {
+
+        if (user?.user_rol !== "admin") {
+            router.push("/gateway")
+            return
+        }
+
         async function fetchDispositivos() {
             try {
 

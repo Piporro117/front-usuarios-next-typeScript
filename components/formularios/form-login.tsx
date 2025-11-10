@@ -39,7 +39,7 @@ export default function FormLogin() {
             const dataUsuario = await res.json()
             setUser(dataUsuario)
             toast.success("Inicio de sesion exitoso")
-            router.push('/usuarios')
+            router.push('/gateway')
         } else {
             if (res.status === 401) {
                 toast.error("Usuario o contraseña no validos")

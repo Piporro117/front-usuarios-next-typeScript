@@ -16,7 +16,7 @@ import { toast } from "sonner"
 export default function PageEditUsuario() {
 
     const { id } = useParams()
-    const { clearUser } = useUser()
+    const { clearUser, user } = useUser()
     const router = useRouter()
 
     const idNumber = id ? Number(id) : undefined
@@ -29,6 +29,12 @@ export default function PageEditUsuario() {
 
     // useEffect para obtener la info del usaurio
     useEffect(() => {
+
+        if (user?.user_rol !== "admin") {
+            router.push("/gateway")
+            return
+        }
+
         async function fetchUsuario() {
             try {
                 const response = await fetch(`http://localhost:5000/api/auth/obtenerUsuario/${idNumber}`, {

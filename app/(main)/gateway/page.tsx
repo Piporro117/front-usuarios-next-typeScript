@@ -1,5 +1,6 @@
 "use client"
 
+import DialogGateway from "@/components/dialogs/dialogGateway"
 import TriangleLoader from "@/components/loader"
 import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
@@ -14,14 +15,18 @@ export default function PageGateway() {
     const [gateways, setGateways] = useState<Gateway[]>([])
     const [loading, setLoading] = useState(true)
 
+    const [open, setOpen] = useState(false)
+    const [gatewaySeleccionado, setGatewaySeleccionado] = useState<Gateway | undefined>(undefined)
+
     useEffect(() => {
 
         async function fetchGateways() {
             try {
 
                 const rol = user?.user_rol
+                const user_id = user?.user_id
 
-                const response = await fetch(rol === "admin" ? `${process.env.NEXT_PUBLIC_API_URL}/api/gateway/consultarTodos` : `${process.env.NEXT_PUBLIC_API_URL}/api/gateway/consultarTodoPorUsu/${user?.user_id}`, {
+                const response = await fetch(rol === "admin" ? `${process.env.NEXT_PUBLIC_API_URL}/api/gateway/consultarTodos` : `${process.env.NEXT_PUBLIC_API_URL}/api/gateway/consultarTodoPorUsu/${user_id}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
@@ -63,7 +68,16 @@ export default function PageGateway() {
                         mensajeFiltro="nombre"
                         routeBase="gateway"
                         ocultarBotonNuevo
+                        onRowClick={(gate) => {
+                            setGatewaySeleccionado(gate)
+                            setOpen(true)
+                        }}
                     />
+
+                    {gatewaySeleccionado && (
+                        <DialogGateway open={open} setOpen={setOpen} gateway={gatewaySeleccionado} />
+                    )}
+
                 </div>
             )}
 

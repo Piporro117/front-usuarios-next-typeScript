@@ -10,7 +10,7 @@ import { toast } from "sonner"
 
 type FooterSideBarProps = {
     titulo: string
-    items: {
+    items?: {
         title: string;
         url: string;
         icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
@@ -63,7 +63,7 @@ export default function FooterSiderBarComponent({ titulo, items }: FooterSideBar
                             side="top"
                             className="w-52"
                         >
-                            {items.map(item => {
+                            {items && items.map(item => {
                                 const Icon = item.icon
                                 return (
                                     <DropdownMenuItem key={item.title}>
