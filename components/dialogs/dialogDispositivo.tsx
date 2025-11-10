@@ -4,10 +4,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog"
 import { useUser } from "@/contextApi/context-auth"
 import { toast } from "sonner"
 import { Button } from "../ui/button"
-import { FileChartColumn } from "lucide-react"
+import { FileChartColumn, Loader } from "lucide-react"
 import { Lectura } from "@/zod/sensorReading-schema"
 import { useRouter } from "next/navigation"
-import TriangleLoader from "../loader"
 
 
 type DialogDispositivoProps = {
@@ -69,7 +68,10 @@ export default function DialogDispositivo({ dispositivo, open, setOpen }: Dialog
                     <DialogHeader>
                         {loadingRespuesta ? (<div className="">
                             <DialogTitle className="text-2xl"></DialogTitle>
-                            ...cargando
+                            <div className="animate-spin w-fit h-fit justify-center items-center">
+                                <Loader />
+                            </div>
+
                         </div>) : (
                             <>
                                 <DialogTitle className="text-2xl"> Informacion del {dispositivo.dev_nombre}</DialogTitle>

@@ -64,7 +64,7 @@ export function SideBar() {
                             <MenuCollapsableSidebar titulo="Lecturas" items={itemsLecturas} />
 
                             {user?.user_rol === "admin" && (
-                                <MenuCollapsableSidebar titulo="Usuarios" items={itemsUsuarios} />
+                                <MenuCollapsableSidebar titulo="Perfil" items={itemsUsuarios} />
                             )}
 
                         </SidebarGroupContent>
