@@ -80,7 +80,7 @@ export default function FormLogin() {
                             <FormItem className="col-span-1 md:col-span-2 lg:col-span-2 xl:col-span-2">
                                 <FormLabel>Contraseña</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Ingrese usuario" {...field} type="password" />
+                                    <Input placeholder="Ingrese contraseña" {...field} type="password" />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

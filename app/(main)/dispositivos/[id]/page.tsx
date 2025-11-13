@@ -106,7 +106,6 @@ export default function PageInfoDispositivo() {
                 if (response.ok) {
                     const data: Lectura[] = await response.json()
                     setLecturas(data)
-                    console.log(data)
                     setLoadingLecturas(false)
                 } else {
                     toast.error("Error al obtener la lecturas")
