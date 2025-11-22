@@ -52,7 +52,7 @@ export function SideBar() {
         <div className="relative">
             <Sidebar collapsible="icon">
                 {/** Header del sidebar */}
-                <HeaderSideBarComponent ruta="/imgs/4ti_logo.png" />
+                <HeaderSideBarComponent ruta="/imgs/4tiLogo.png" />
 
 
                 <SidebarContent>

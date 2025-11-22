@@ -1,27 +1,27 @@
 "use client"
 import DialogUser from "@/components/dialogs/dialogUser"
+import TriangleLoader from "@/components/loader"
 import TableComponente from "@/components/table/table-component"
 import { Label } from "@/components/ui/label"
 import { useUser } from "@/contextApi/context-auth"
+import { useRequireAdmin } from "@/hooks/use-required-admin"
 import { ColumnasUsuario, Usuario } from "@/zod/usuario-schema"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export default function PageUsuarios() {
 
+    // solo admin
+    const { isAllowed, isLoadingUser } = useRequireAdmin()
+
     const router = useRouter()
 
-    const { clearUser, user } = useUser()
+    const { clearUser } = useUser()
     const [usuarios, setUsuarios] = useState<Usuario[]>([])
     const [open, setOpen] = useState(false)
     const [usuarioSeleccionado, setusaurioSeleccionado] = useState<Usuario | undefined>(undefined)
 
     useEffect(() => {
-
-        if (user?.user_rol !== "admin") {
-            router.push("/gateway")
-            return
-        }
 
         // funcion para trear los usaurios
         async function fetchUsuarios() {
@@ -47,6 +47,15 @@ export default function PageUsuarios() {
         }
         fetchUsuarios()
     }, [])
+
+
+    // para verficiar que es admin
+    if (isLoadingUser) {
+        return <TriangleLoader />
+    }
+    if (!isAllowed) {
+        return null
+    }
 
     return (
         <div className="">

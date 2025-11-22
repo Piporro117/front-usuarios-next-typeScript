@@ -67,34 +67,3 @@ export const DispositivoSchema = z.object({
 })
 
 export type Dispositivo = z.infer<typeof DispositivoSchema>
-
-
-// columnas en tablas
-export const ColumnasDispositivo: ColumnDef<Dispositivo>[] = [
-    {
-        accessorKey: 'dev_id',
-        header: 'ID'
-    },
-    {
-        accessorKey: 'dev_nombre',
-        header: 'Nombre disp.'
-    },
-    {
-        accessorKey: 'dev_eui',
-        header: 'EUI'
-    },
-    {
-        accessorKey: 'dev_estatus',
-        header: 'Estatus',
-        cell: ({ row }) => {
-            const estatus = row.original.dev_estatus
-
-            if (estatus) {
-                return estatus === "1" ? "Activo" : "Inactivo"
-            } else {
-                return
-            }
-        }
-    }
-]
-

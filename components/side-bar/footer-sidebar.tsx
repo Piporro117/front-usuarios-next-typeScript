@@ -24,7 +24,7 @@ export default function FooterSiderBarComponent({ titulo, items }: FooterSideBar
 
     const router = useRouter()
 
-    const { logout } = useUser()
+    const { clearUser } = useUser()
 
     async function onClick() {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/logout`, {
@@ -33,11 +33,11 @@ export default function FooterSiderBarComponent({ titulo, items }: FooterSideBar
         })
 
         if (response.ok) {
-            toast.success("Cerrado de sesion exitoso")
-            logout()
+            toast.success("Cerrado de sesión exitoso")
+            clearUser()
             router.push('/login')
         } else {
-            toast.error("Error al salir de la sesion")
+            toast.error("Error al salir de la sesión")
         }
     }
 
@@ -77,7 +77,7 @@ export default function FooterSiderBarComponent({ titulo, items }: FooterSideBar
 
                             <DropdownMenuItem onClick={onClick}>
                                 <LogOut />
-                                Cerrar sesion
+                                Cerrar sesión
                             </DropdownMenuItem>
 
                         </DropdownMenuContent>

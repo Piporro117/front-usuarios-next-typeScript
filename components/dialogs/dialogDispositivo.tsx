@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog"
 import { useUser } from "@/contextApi/context-auth"
 import { toast } from "sonner"
 import { Button } from "../ui/button"
-import { FileChartColumn, Loader } from "lucide-react"
+import { CalendarRange, FileChartColumn, Loader } from "lucide-react"
 import { Lectura } from "@/zod/sensorReading-schema"
 import { useRouter } from "next/navigation"
 
@@ -25,6 +25,9 @@ export default function DialogDispositivo({ dispositivo, open, setOpen }: Dialog
     const [loadingRespuesta, setLoadingRespuesta] = useState(true)
 
     useEffect(() => {
+
+        setLoadingRespuesta(true)
+
         async function fetchRespuestaDispositivo() {
 
             try {
@@ -103,11 +106,22 @@ export default function DialogDispositivo({ dispositivo, open, setOpen }: Dialog
                                         <section>{respuesta ? respuesta.water_temperature : ' - '}</section>
                                     </div>
 
+                                    <div className="flex-col">
+                                        <section className="font-bold"> Lectura actual </section>
+                                        <section>{respuesta ? respuesta.cumulative_water_volume : ' - '}</section>
+                                    </div>
 
-                                    <div className="col-start-1 flex-row-reverse">
-                                        <Button variant={'blue'} onClick={() => router.push(`/dispositivos/${dispositivo.dev_id}`)}>
+
+                                    <div className="flex gap-5 justify-between">
+                                        <Button variant={'blue'} onClick={() => router.push(`/dispositivos/${dispositivo.dev_id}/infoCompleta`)}>
                                             <FileChartColumn />
                                             Ver información completa
+                                        </Button>
+
+
+                                        <Button variant={'blue'} onClick={() => router.push(`/dispositivos/${dispositivo.dev_id}/infoPeriodo`)}>
+                                            <CalendarRange />
+                                            Ver información periodo
                                         </Button>
                                     </div>
 

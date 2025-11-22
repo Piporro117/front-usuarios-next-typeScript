@@ -8,7 +8,7 @@ type HeaderSidebarComponentProps = {
 export default function HeaderSideBarComponent({ ruta }: HeaderSidebarComponentProps) {
     return (
         <SidebarHeader className="flex items-center justify-center">
-            <Image src={ruta} width={150} height={150} alt="logo" className="mt-2" />
+            <Image src={ruta} width={100} height={100} alt="logo" className="mt-2" />
         </SidebarHeader>
     )
 }
