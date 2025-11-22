@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Image from "next/image"
 import { Label } from "@/components/ui/label";
-import { ChartLectura } from "@/components/graficos/graficaLecturasDevice";
 import { convertirFechaConHora } from "@/lib/utils";
+import { BarChartConsumo } from "@/components/graficos/barChartConsumo";
 
 export default function PageInfoPeriodoDispositivo() {
 
@@ -163,7 +163,7 @@ export default function PageInfoPeriodoDispositivo() {
             const volActual = lecturaMesActual.cumulative_water_volume ?? 0
             const volAnterior = lecturaMesAnterior.cumulative_water_volume ?? 0
 
-            const consumo = 325 - 15
+            const consumo = volActual - volAnterior
 
             return Number(consumo.toFixed(2))
         }
@@ -187,9 +187,9 @@ export default function PageInfoPeriodoDispositivo() {
                         </div>
 
                         <div className="w-full h-fit flex flex-col gap-2 rounded-2xl bg-gray-200 p-7">
-                            <Label className="text-3xl font-bold">Lecturas:  </Label>
+                            <Label className="text-3xl font-bold">Consumo:  </Label>
 
-                            <ChartLectura lecturas={lecturas} />
+                            <BarChartConsumo lecturas={lecturas} />
                         </div>
 
 
