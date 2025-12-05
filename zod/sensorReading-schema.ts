@@ -68,7 +68,7 @@ export const ColumnasLectura: ColumnDef<Lectura>[] = [
     },
     {
         accessorKey: 'device_eui',
-        header: 'Nombre dispositivo'
+        header: 'EUI dispositivo'
     },
     {
         accessorKey: 'cumulative_water_volume',

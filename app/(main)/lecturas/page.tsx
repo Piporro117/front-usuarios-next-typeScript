@@ -10,7 +10,7 @@ import { toast } from "sonner"
 
 export default function PageLecturas() {
 
-    const { clearUser } = useUser()
+    const { clearUser, user } = useUser()
     const [lecturas, setLecturas] = useState<Lectura[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -19,7 +19,7 @@ export default function PageLecturas() {
         async function fetchLectura() {
             try {
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/response/consultarTodasLecturas`, {
+                const response = await fetch(user?.user_rol === "admin" ? `${process.env.NEXT_PUBLIC_API_URL}/api/response/consultarTodasLecturas` : `${process.env.NEXT_PUBLIC_API_URL}/api/response/consultarLecturasUsuario/${user?.user_id}`, {
                     method: 'GET',
                     credentials: 'include'
                 })
